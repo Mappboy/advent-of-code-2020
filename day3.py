@@ -24,8 +24,7 @@ def travese_slope(input_map: list, right=3, down=1):
             continue
         line = line.rstrip("\n")
         tobagan += right
-        tobagan_pos = tobagan % len(line)
-        if line[tobagan_pos] == "#":
+        if line[tobagan % len(line)] == "#":
             hit_tree += 1
     return hit_tree
 
