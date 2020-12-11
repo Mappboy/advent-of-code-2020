@@ -138,7 +138,7 @@ if __name__ == '__main__':
     assert part1(parse_input(test.splitlines())) == 37
     ans1 = part1(parse_input(input_data.splitlines()))
     print(ans1)
-    # advent.submit_answer(1, ans1)
+    advent.submit_answer(1, ans1)
     ans2 = part2(parse_input(input_data.splitlines()))
     print(ans2)
-    # advent.submit_answer(1, ans1)
+    advent.submit_answer(2, ans2)
