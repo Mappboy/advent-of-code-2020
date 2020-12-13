@@ -2,7 +2,7 @@ import re
 from math import cos, sin, radians
 from typing import Tuple, List
 
-from utils import advent
+from utils.all import *
 
 INSTRUCTION = re.compile(r"(\w{1})(\d+)")
 
@@ -60,19 +60,32 @@ def instruction_to_coords(instruction: str, current_direction: str, current_coor
         return current_direction, current_coord
 
 
-def rotate_matrix(angle, coordinate, clockwise=True):
+def rotate_matrix(angle: int, coordinate: tuple, clockwise=True) -> Tuple[int, int]:
     """
-    Rotate coordinate around angle
-    :param theta:
-    :return:
+    Rotate coordinate around angle.
+    :param angle: Angle to rotate coordinate around
+    :param coordinate: Coordinate in x,y format
+    :param clockwise: Direction to rotate around default is clockwise
+    :return: Transformed coordinate
     """
-    theta = radians(angle)
-    if clockwise:
-        return ((int(coordinate[0] * cos(theta)) - int(coordinate[1] * sin(theta)),
-                 int(coordinate[0] * sin(theta)) + int(coordinate[1] * cos(theta))))
+    if angle == 90:
+        cos_a = 0
+        sin_a = 1
+    elif angle == 180:
+        sin_a = 0
+        cos_a = -1
+    elif angle == 270:
+        sin_a = -1
+        cos_a = 0
     else:
-        return ((int(coordinate[0] * cos(theta)) + int(coordinate[1] * sin(theta)),
-                 int(coordinate[0] * -sin(theta)) + int(coordinate[1] * cos(theta))))
+        sin_a = sin(radians(angle))
+        cos_a = cos(radians(angle))
+    if clockwise:
+        return ((int(coordinate[0] * cos_a) - int(coordinate[1] * sin_a),
+                 int(coordinate[0] * sin_a) + int(coordinate[1] * cos_a)))
+    else:
+        return ((int(coordinate[0] * cos_a) + int(coordinate[1] * sin_a),
+                 int(coordinate[0] * -sin_a) + int(coordinate[1] * cos_a)))
 
 
 def instruction_to_waypoints(instruction: str, current_coord: tuple, waypoint: tuple = ()) -> \
@@ -125,9 +138,11 @@ if __name__ == '__main__':
     assert part1(test.splitlines()) == 25
     ans1 = part1(input_data.splitlines())
     print(ans1)
-    advent.submit_answer(1, ans1)
+    # advent.submit_answer(1, ans1)
     t2 = part2(test.splitlines())
     assert t2 == 286
+    timer_start()
     ans2 = part2(input_data.splitlines())
+    timer_stop()
     print(ans2)
-    advent.submit_answer(2, ans2)
+    # advent.submit_answer(2, ans2)
