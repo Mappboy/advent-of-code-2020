@@ -110,7 +110,7 @@ def part2(input_lines: List[str]):
                 continue
         if input_section == 1:
             if skip_lines:
-                # skip line with nearby tickets
+                # skip line with my tickets
                 skip_lines -= 1
                 continue
             my_ticket = str_to_ints(line)
